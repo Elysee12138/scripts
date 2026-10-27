@@ -1,0 +1,27 @@
+# update.yml - 系统更新剧本（示例占位）
+- name: Patch systems
+  hosts: all
+  become: true
+  serial: 1
+
+  tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+      when: ansible_os_family == "Debian"
+
+    - name: Upgrade packages
+      ansible.builtin.apt:
+        upgrade: safe
+      when: ansible_os_family == "Debian"
+
+    - name: Check reboot required
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+      register: reboot_file
+
+    - name: Report reboot needed
+      ansible.builtin.debug:
+        msg: "需要重启：{{ inventory_hostname }}"
+      when: reboot_file.stat.exists
