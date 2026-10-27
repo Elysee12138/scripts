@@ -1,0 +1,26 @@
+# deploy.yml - 应用部署剧本（示例占位）
+- name: Deploy application
+  hosts: web
+  become: true
+  vars:
+    app_dir: /opt/app
+    app_version: "1.0.0"
+
+  tasks:
+    - name: Ensure app directory exists
+      ansible.builtin.file:
+        path: "{{ app_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Sync application files
+      ansible.builtin.copy:
+        src: ./files/
+        dest: "{{ app_dir }}/"
+        mode: "0644"
+
+    - name: Restart service
+      ansible.builtin.systemd:
+        name: app
+        state: restarted
+        daemon_reload: true
