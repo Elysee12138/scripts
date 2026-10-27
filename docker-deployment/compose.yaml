@@ -1,0 +1,18 @@
+# compose.yaml - 单机部署编排（示例占位）
+name: demo-stack
+
+services:
+  app:
+    build: .
+    image: demo/app:latest
+    container_name: demo-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      TZ: Asia/Shanghai
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
