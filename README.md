@@ -11,7 +11,3 @@
 | `nginx-config/` | Nginx 主配置、反向代理、HTTPS 示例 |
 | `monitoring-stack/` | Prometheus + Alertmanager + Grafana 监控栈配置 |
 | `ansible-automation/` | Ansible 主机清单与部署/更新剧本 |
-
-## 说明
-
-当前内容为占位示例，后续按实际环境替换。
